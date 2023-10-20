@@ -1,6 +1,23 @@
 import argparse
 from scanner.network_scanner import scan_network_for_smb_shares
 from smb.credential_checker import connect_and_check_credentials
+import argparse
+import logging
+import logging.handlers
+
+def setup_logging():
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler('logs/smb_cred_scan.log'),
+            logging.StreamHandler()
+        ]
+    )
+
+def main():
+    setup_logging()
+    config = load_configuration()
 
 def main():
     parser = argparse.ArgumentParser(description="SMB Credential Scanner")
