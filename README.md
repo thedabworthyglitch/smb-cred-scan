@@ -26,22 +26,42 @@ cd smb-cred-scan
 # Install the required Python libraries
 pip install -r requirements.txt
 
-# Run the tool with a target IP range (e.g., 192.168.1.0/24)
+#Configuration (config.yaml): Ensure that your config.yaml file is properly configured with your desired parameters, such as the throttle delay, maximum file size, maximum directory depth, and allowed file types.
+
+#Sample config.yaml:
+throttle_delay: 2  # Delay in seconds between connecting to shares
+max_file_size: 1000000  # Maximum file size in bytes (1 MB)
+max_directory_depth: 5  # Maximum directory depth to search
+allowed_file_types:
+  - .txt
+  - .ini
+  - .cfg
+  - .config
+  - .xml
+
+#Running the Scanner: Open a command prompt or terminal and navigate to the directory containing your project files. You can run the main.py script to start scanning for SMB shares.
 python main.py --target-ip 192.168.1.0/24
 
-# The program will scan the network for open SMB shares, list the discovered shares, and prompt you to select one interactively for credential checking.
+#Selecting an SMB Share: The script will discover SMB shares and display them. You can select an SMB share to scan for hard-coded credentials.
+#Sample user interaction:
+Discovered SMB Shares:
+1. \\192.168.1.100\share1
+2. \\192.168.1.101\share2
+Select an SMB share (1, 2, ...): 1
 
-# Optionally, you can specify an SMB share manually using the --smb-share argument
-python main.py --target-ip 192.168.1.0/24 --smb-share '\\target_machine\share'
+
+#Scanning for Credentials: The script will then scan the selected SMB share for hard-coded credentials. If it finds any, it will log the potential credentials.
+#Sample output:
+2023-10-20 15:30:45 - WARNING - Found potential credentials in \\192.168.1.100\share1\file.txt:
+2023-10-20 15:30:45 - WARNING - Username: myusername
+2023-10-20 15:30:45 - WARNING - Password: mypassword
+
+#Viewing Logs: The logs are saved in a file called smb_cred_scan.log and are also displayed in the terminal. You can review the log file for any potential credentials found.
 ```
 
 ## Required Libraries
 
-The following Python libraries are required for running the SMB Credential Scanner:
-
-smbprotocol: Used for SMB operations, such as connecting to shares and interacting with files.
-regex: Used for pattern matching within file contents.
-argparse: Used for parsing command-line arguments.
+smbprotocol, regex, argeparser, pyyaml
 You can install these libraries using the provided requirements.txt file:
 
 ```bash

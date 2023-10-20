@@ -1,0 +1,9 @@
+throttle_delay: 2  # Delay in seconds between connecting to shares
+max_file_size: 1000000  # Maximum file size in bytes (1 MB)
+max_directory_depth: 5  # Maximum directory depth to search
+allowed_file_types:
+  - .txt
+  - .ini
+  - .cfg
+  - .config
+  - .xml
